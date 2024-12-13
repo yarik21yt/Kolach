@@ -28,6 +28,11 @@ def input(key):
       if key == 'left mouse down':
         grasses.remove(grass)
         destroy(grass)
+  if key == 'q':
+     cobblestone.position = player.position
+  if key == 'r':
+     player.position = (0,0,0)
+     
 
 def update():
     cobblestone.rotation_x = cobblestone.rotation_x + time.dt * 10
