@@ -1,6 +1,8 @@
 from ursina import *
 from ursina.prefabs.first_person_controller import FirstPersonController
+import os
 from labels import *
+
 
 app = Ursina()
 player = FirstPersonController()
@@ -22,6 +24,20 @@ cobblestone.texture = 'max.png'
 cobblestone.position = Vec3(10, 2, 10)
 
 text = Text(text=test_text, scale=4, x=-0.8, y=-0.3)
+
+def save_world():
+    with open('world.txt', 'w') as f:
+        for block in blocks:
+            f.write(f"{block.position.x},{block.position.y},{block.position.z},{block.texture}\n")
+
+def load_world():
+    if os.path.exists('world.txt'):
+        with open('world.txt', 'r') as f:
+            for line in f:
+                x, y, z, texture = line.strip().split(',')
+                new_block = Button(color=color.white, model='cube', position=(float(x), float(y), float(z)),
+                                   texture=texture, parent=scene, origin_y=0.5)
+                blocks.append(new_block)
 
 
 def input(key):
@@ -55,6 +71,10 @@ def input(key):
      cobblestone.position = player.position
   if key == 'r':
      player.position = (0,0,0)
+  if key == 'l':
+    load_world()
+  if key == 'k':
+    save_world()
   if key == '1':
     choosed = 1
   elif key == '2':
