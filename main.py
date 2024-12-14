@@ -4,34 +4,68 @@ from labels import *
 
 app = Ursina()
 player = FirstPersonController()
+choosed = 1
+# 1 - grass
+# 2 - cobblestone
+# 3 - planks
+# 4 - wool
+# 5 - max
 
-grasses = []
-for i in range(15):
-    for j in range(15):
+blocks = []
+for i in range(20):
+    for j in range(20):
         grass = Button(color='#ffffff', model='cube', position=(j,0,i), texture='grass.png', parent=scene, origin_y=0.5)
-        grasses.append(grass)
+        blocks.append(grass)
 
 cobblestone = Entity(model='cube')
 cobblestone.texture = 'max.png'
-cobblestone.position = Vec3(5, 2, 5)
+cobblestone.position = Vec3(10, 2, 10)
 
 text = Text(text=test_text, scale=4, x=-0.8, y=-0.3)
 
 
 def input(key):
-  for grass in grasses:
+  global choosed
+  for grass in blocks:
     if grass.hovered:
-      if key == 'right mouse down':
+      if key == 'right mouse down' and choosed == 1:
+        new = Button(color=color.white, model='cube', position=grass.position + mouse.normal,
+                    texture='grass.png', parent=scene, origin_y=0.5)
+        blocks.append(new)
+      elif key == 'right mouse down' and choosed == 2:
         new = Button(color=color.white, model='cube', position=grass.position + mouse.normal,
                     texture='cobblestone.png', parent=scene, origin_y=0.5)
-        grasses.append(new)
+        blocks.append(new)
+      elif key == 'right mouse down' and choosed == 3:
+        new = Button(color=color.white, model='cube', position=grass.position + mouse.normal,
+                    texture='planks.png', parent=scene, origin_y=0.5)
+        blocks.append(new)
+      elif key == 'right mouse down' and choosed == 4:
+        new = Button(color=color.white, model='cube', position=grass.position + mouse.normal,
+                    texture='wool.png', parent=scene, origin_y=0.5)
+        blocks.append(new)
+      elif key == 'right mouse down' and choosed == 5:
+        new = Button(color=color.white, model='cube', position=grass.position + mouse.normal,
+                    texture='max.png', parent=scene, origin_y=0.5)
+        blocks.append(new)
       if key == 'left mouse down':
-        grasses.remove(grass)
+        blocks.remove(grass)
         destroy(grass)
   if key == 'q':
      cobblestone.position = player.position
   if key == 'r':
      player.position = (0,0,0)
+  if key == '1':
+    choosed = 1
+  elif key == '2':
+    choosed = 2
+  elif key == '3':
+    choosed = 3
+  elif key == '4':
+    choosed = 4
+  elif key == '5':
+    choosed = 5
+    
      
 
 def update():
