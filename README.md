@@ -1,4 +1,4 @@
-# TestUrsinaEngine
+# Kolach
 just small test game maded with ursina engine in python! (bad game)
 
 You need to install ursina engine first:
