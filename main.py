@@ -25,12 +25,21 @@ cobblestone.position = Vec3(10, 2, 10)
 
 text = Text(text=test_text, scale=4, x=-0.8, y=-0.3)
 
+
+def clear_world():
+    global blocks
+    for block in blocks:
+        destroy(block)
+    blocks = []
+
+
 def save_world():
     with open('world.txt', 'w') as f:
         for block in blocks:
             f.write(f"{block.position.x},{block.position.y},{block.position.z},{block.texture}\n")
 
 def load_world():
+    clear_world()
     if os.path.exists('world.txt'):
         with open('world.txt', 'r') as f:
             for line in f:
