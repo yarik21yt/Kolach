@@ -12,6 +12,7 @@ choosed = 1
 # 3 - planks
 # 4 - wool
 # 5 - max
+# 6 - glass
 
 blocks = []
 for i in range(20):
@@ -73,6 +74,10 @@ def input(key):
         new = Button(color=color.white, model='cube', position=grass.position + mouse.normal,
                     texture='max.png', parent=scene, origin_y=0.5)
         blocks.append(new)
+      elif key == 'right mouse down' and choosed == 6:
+        new = Button(color=color.white, model='cube', position=grass.position + mouse.normal,
+                    texture='glass.png', parent=scene, origin_y=0.5)
+        blocks.append(new)
       if key == 'left mouse down':
         blocks.remove(grass)
         destroy(grass)
@@ -94,7 +99,8 @@ def input(key):
     choosed = 4
   elif key == '5':
     choosed = 5
-    
+  elif key == '6':
+    choosed = 6
      
 
 def update():
